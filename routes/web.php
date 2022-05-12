@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,12 @@ Route::get('/', function () {
     return view('index');
 });
 
+// Route::resource('/admin/users', UserController::class);
+
 
 Route::get('/logout', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
+
+Route::prefix('admin')->name('admin.')->group(function(){
+    Route::resource('/users', UserController::class);
+});
 
