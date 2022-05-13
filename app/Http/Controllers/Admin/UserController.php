@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+// use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -14,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        dd('test');
+        $users = User::all();
+        return view('admin.users.index', ["users"=> User::all()]);
     }
 
     /**
