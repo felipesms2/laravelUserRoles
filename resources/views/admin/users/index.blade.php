@@ -27,11 +27,27 @@
                     href="{{route('admin.users.edit', $user->id)}}"
                     role="button"
                 >Edit</a>
-                <form  id = "delete-user-form-{{$user->id}}" action="{{route('admin.users.destroy',$user->id)}}" method="POST" >
+                <button
+                    class ="btn btn-sm btn-danger
+                    d-inline"
+                    type="submit"
+                    onclick="$('#delete-user-form-{{$user->id}}').submit()"
+                >Delete</button>
+
+                 <form
+                    id="delete-user-form-{{$user->id}}"
+                    action="{{route('admin.users.destroy',$user->id)}}"
+                    method="POST"
+                    style="display: none"
+                >
+                    @csrf
+                    @method("DELETE")
+                </form>
+                {{-- <form  id = "delete-user-form-{{$user->id}}" action="{{route('admin.users.destroy',$user->id)}}" method="POST" >
                     @csrf
                     @method("DELETE")
                     <button class = "btn btn-sm btn-danger d-inline" type="submit">Delete</button>
-                </form>
+                </form> --}}
             </td>
           </tr>
 
@@ -39,6 +55,7 @@
 
     </tbody>
 </table>
+{{$users->links()}}
 </div>
 @endsection
 
