@@ -2,6 +2,10 @@
 
 
 @section('content')
+<a
+    class="btn btn-success"
+    href="{{route('admin.users.create')}}"
+>Create</a>
 <div class="card">
 <table class="table text-center">
     <thead>

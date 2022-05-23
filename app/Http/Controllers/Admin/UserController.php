@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 // use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view("admin.users.create", ['roles' => Role::all()]);
     }
 
     /**
@@ -38,7 +40,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->except(['_token', 'roles']));
+        $user->roles()->sync($request->roles);
+        return redirect(route('admin.users.index'));
+        // dd($request);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = Hash::make($password);
     }
 
     /**
@@ -60,7 +70,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.users.edit',
+            [
+                'roles'=>Role::all(),
+                'user'=>User::find($id)
+            ]);
     }
 
     /**
@@ -72,7 +86,10 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->update($request->except(['_token', 'roles']));
+        $user->roles()->sync($request->roles);
+        return redirect(route('admin.users.index'));
     }
 
     /**
