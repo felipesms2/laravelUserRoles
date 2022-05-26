@@ -31,8 +31,11 @@
               @yield('auth')
             </div>
           </nav>
-
+          <div
+            class="text-center mt-2"
+            >@include('partials.alerts')</div>
           <div class="mt-5">
+
               @yield('content')
           </div>
         </div>

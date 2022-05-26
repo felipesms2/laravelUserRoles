@@ -58,7 +58,7 @@
     @foreach ($roles as $role)
       <div class="form-check">
           <input
-              class="form-check-input"
+              class="form-check-input @error('password') is-invalid  @enderror"
               type="checkbox"
               value="{{$role->id}}"
               id="{{$role->name}}"
@@ -72,6 +72,11 @@
           <label class="form-check-label" for="flexCheckDefault">
               {{$role->name}}
           </label>
+          @error('password')
+          <span class='invalid-feedback' role='alert'>
+              {{$message}}
+          </span>
+          @enderror
       </div>
     @endforeach
 </div>
