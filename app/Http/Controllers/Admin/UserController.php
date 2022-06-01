@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
-// use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -19,8 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('logged-in')) {
+             dd('Access Denied');
+        }
         //$users = User::all();
-        return view('admin.users.index', ["users"=> User::paginate(10)]);
+        return view('admin.users.index', ["users"=> User::paginate(40)]);
     }
 
     /**
@@ -43,6 +46,8 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+
+
 
         $validateData = $request->validated();
         $user = User::create($validateData);

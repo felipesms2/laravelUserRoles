@@ -23,8 +23,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
-
-        //
+        $this->registerPolicies();  
+        Gate::define('logged-in', function($user){
+            return $user;
+        });
+        //1
     }
 }

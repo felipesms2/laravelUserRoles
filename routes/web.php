@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use Doctrine\DBAL\Driver\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
 
 Route::get('/logout', 'Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
 
-Route::prefix('admin')->name('admin.')->group(function(){
+Route::prefix('admin')->middleware('auth')->name('admin.')->group(function(){
     Route::resource('/users', UserController::class);
 });
 

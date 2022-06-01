@@ -4,7 +4,7 @@
 
 <h1>Login</h1>
 
-<form method="POST" action="{{route('register')}}">
+<form method="POST" action="{{route('login')}}">
     @csrf
 
   <div class="mb-3">
@@ -36,7 +36,7 @@
     >
         @error('password')
         <span class='invalid-feedback' role='alert'>
-            {{$message}}
+            {{$message}}    
         </span>
         @enderror
     </span>
